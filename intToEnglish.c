@@ -83,7 +83,6 @@ char		*intToEnglish(int number)
 	number *= sign;
 	if (number == 0)
 		return ("zero");
-	//return (digit[number]);
 	ret = (char *)malloc(sizeof(char) * 1);
 	ret[0] = 0;
 	while (number)
@@ -119,6 +118,5 @@ char		*intToEnglish(int number)
 		number %= my_pow(10, num_size(number));
 		printf("number end = %d\n", number);
 	}
-	printf("my_pow 4, 10= %d\n", my_pow(10, 3));
 	return (ret);
 }
