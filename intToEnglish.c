@@ -78,6 +78,7 @@ char		*intToEnglish(int number)
 	int	count;
 	int	checkifteen;
 	int	sign;
+	int	lastnumber;
 	int	string_size;
 	char	*ret;
 	char	*isteen;
@@ -101,6 +102,7 @@ char		*intToEnglish(int number)
 	number < 0 ? (sign = -1) : (sign = 1);
 	number *= sign;
 	checkifteen = 0;
+	lastnumber = 0;
 	if (number == 0)
 		return ("zero");
 	ret = (char *)malloc(sizeof(char) * 1);
@@ -141,8 +143,8 @@ char		*intToEnglish(int number)
 				ret = write_mem(ret, beyond[count], my_strlen(ret));
 				break;
 			case 2:
-				if (my_strlen(ret) > 0)
-					ret = write_mem(ret, "and ", my_strlen(ret));
+				//if (my_strlen(ret) > 0)
+				//	ret = write_mem(ret, "and ", my_strlen(ret));
 				isteen = number > ((2 * j) - 1) ? tens[number / j] : teens[(number % j) / (j / 10)];
 				ret = write_mem(ret, isteen, my_strlen(ret));
 				checkifteen = (number < (2 * j) - 1) && (number > j) ? 1 : 0;
@@ -152,7 +154,10 @@ char		*intToEnglish(int number)
 				break;
 		}
 		printf("number end = %d\n", number);
-		number %= my_pow(10, num_size(number));
+		lastnumber = number;
+		number %= j;
+		if (num_size(lastnumber) - num_size(number) > 2)
+			ret = write_mem(ret, beyond[count - 1], my_strlen(ret));
 		printf("number end = %d\n", number);
 	}
 	return (ret);
