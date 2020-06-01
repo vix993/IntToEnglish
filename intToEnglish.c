@@ -42,22 +42,41 @@ char		*write_mem(char *str, char *num, int pos)
 	return (str);
 }
 
-int		my_pow(int num, int pow)
+int		my_pow(int pow, int num_size)
 {
 	int	temp;
 
 	temp = 1;
-	while (--pow)
+	while (--num_size)
 	{
-		temp *= num;
+		temp *= pow;
 	}
 	return (temp);
+}
+
+int		count_beyond(int num, int pow)
+{
+	int	i;
+	int	ret;
+
+	i = 0;
+	ret = 0;
+	while (--pow)
+	{
+
+		if (i % 3 == 0)
+			ret++;
+		i++;
+	}
+	return (ret);
 }
 
 char		*intToEnglish(int number)
 {
 	int	i;
 	int	j;
+	int	count;
+	int	checkifteen;
 	int	sign;
 	int	string_size;
 	char	*ret;
@@ -77,10 +96,11 @@ char		*intToEnglish(int number)
 		"sixty ", "seventy ", "eighty ", "ninety "
 	};
 	char *beyond[] = {
-		"", "", "", "hundred ", "thousand ", "million ", "billion "
+		"", "hundred ", "thousand ", "million ", "billion ", "trillion "
 	};
 	number < 0 ? (sign = -1) : (sign = 1);
 	number *= sign;
+	checkifteen = 0;
 	if (number == 0)
 		return ("zero");
 	ret = (char *)malloc(sizeof(char) * 1);
@@ -92,28 +112,45 @@ char		*intToEnglish(int number)
 			ret = write_mem(ret, negative, my_strlen(ret));
 			sign *= sign;
 		}
-		i = num_size(number);
-		printf("num_size %d\n", i);
+		i = num_size(number) % 3;
 		j = my_pow(10, num_size(number));
+		count = number > 10 ? count_beyond(10, num_size(number)) + 1: count_beyond(10, num_size(number));
+		printf("num_size %d\n", num_size(number));
+		printf("my_pow %d\n", j);
+		printf("i %d\n", i);
+		printf("count %d\n", count);
+		printf("is teen? %d\n", ((2 * j) - 1));
 		switch(i)
 		{
+	//		case 0:
+	//			if ((num_size(number) % 3) == 1)
+	//				ret = write_mem(ret, digit[number / j], my_strlen(ret));
+	//			ret = write_mem(ret, beyond[count], my_strlen(ret));
+	//			break;
+			case 0:
+				ret = write_mem(ret, digit[number / j], my_strlen(ret));
+				ret = write_mem(ret, beyond[1], my_strlen(ret));
+				break;
 			case 1:
-				ret = write_mem(ret, digit[number], my_strlen(ret));
+				printf("%d\n", checkifteen);
+				//if (checkifteen == 0)
+				//	break;
+				printf("in here");
+				if(checkifteen == 0)
+					ret = write_mem(ret, digit[number / j], my_strlen(ret));
+				ret = write_mem(ret, beyond[count], my_strlen(ret));
 				break;
 			case 2:
-				isteen = number > 19 ? tens[number / 10] : teens[number % 10];
+				if (my_strlen(ret) > 0)
+					ret = write_mem(ret, "and ", my_strlen(ret));
+				isteen = number > ((2 * j) - 1) ? tens[number / j] : teens[(number % j) / (j / 10)];
 				ret = write_mem(ret, isteen, my_strlen(ret));
-				if (number > 19)
-					ret = write_mem(ret, digit[number % 10], my_strlen(ret));
-				break;
-			case 3:
-				printf("in here\n");
-				ret = write_mem(ret, digit[number / 100], my_strlen(ret));
-				ret = write_mem(ret, beyond[i], my_strlen(ret));
+				checkifteen = (number < (2 * j) - 1) && (number > j) ? 1 : 0;
+				printf("%d\n", checkifteen);
+				//if (checkifteen == 1)
+				//	ret = write_mem(ret, digit[number % 10], my_strlen(ret));
 				break;
 		}
-		if (number < 100)
-			break;
 		printf("number end = %d\n", number);
 		number %= my_pow(10, num_size(number));
 		printf("number end = %d\n", number);
