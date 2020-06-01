@@ -156,7 +156,7 @@ char		*intToEnglish(int number)
 		printf("number end = %d\n", number);
 		lastnumber = number;
 		number %= j;
-		if (num_size(lastnumber) - num_size(number) > 2)
+		if ((num_size(lastnumber) - num_size(number) > 2) && number != 0)
 			ret = write_mem(ret, beyond[count - 1], my_strlen(ret));
 		printf("number end = %d\n", number);
 	}
