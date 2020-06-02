@@ -117,11 +117,11 @@ char		*intToEnglish(int number)
 		i = num_size(number) % 3;
 		j = my_pow(10, num_size(number));
 		count = number > 10 ? count_beyond(10, num_size(number)) + 1: count_beyond(10, num_size(number));
-		printf("num_size %d\n", num_size(number));
-		printf("my_pow %d\n", j);
-		printf("i %d\n", i);
-		printf("count %d\n", count);
-		printf("is teen? %d\n", ((2 * j) - 1));
+		//printf("num_size %d\n", num_size(number));
+		//printf("my_pow %d\n", j);
+		//printf("i %d\n", i);
+		//printf("count %d\n", count);
+		//printf("is teen? %d\n", ((2 * j) - 1));
 		switch(i)
 		{
 	//		case 0:
@@ -132,14 +132,14 @@ char		*intToEnglish(int number)
 			case 0:
 				ret = write_mem(ret, digit[number / j], my_strlen(ret));
 				ret = write_mem(ret, beyond[1], my_strlen(ret));
-				if (number % j < 100 && number > 100)
+				if (number % j < 100 && number > 999)
 					ret = write_mem(ret, beyond[count - 1], my_strlen(ret));
 				break;
 			case 1:
-				printf("%d\n", checkifteen);
+		//		printf("%d\n", checkifteen);
 				//if (checkifteen == 0)
 				//	break;
-				printf("in here");
+		//		printf("in here");
 				if(checkifteen == 0)
 					ret = write_mem(ret, digit[number / j], my_strlen(ret));
 				ret = write_mem(ret, beyond[count], my_strlen(ret));
@@ -150,19 +150,19 @@ char		*intToEnglish(int number)
 				isteen = number > ((2 * j) - 1) ? tens[number / j] : teens[(number % j) / (j / 10)];
 				ret = write_mem(ret, isteen, my_strlen(ret));
 				checkifteen = (number < (2 * j) - 1) && (number > j) ? 1 : 0;
-				if (number % j < 100)
+				if (number % j < 100 && number > 100)
 					ret = write_mem(ret, beyond[count - 1], my_strlen(ret));
-				printf("%d\n", checkifteen);
+		//		printf("%d\n", checkifteen);
 				//if (checkifteen == 1)
 				//	ret = write_mem(ret, digit[number % 10], my_strlen(ret));
 				break;
 		}
-		printf("number end = %d\n", number);
+		//printf("number end = %d\n", number);
 		lastnumber = number;
 		number %= j;
-		if ((num_size(lastnumber) - num_size(number) > 2) && number != 0)
-			ret = write_mem(ret, beyond[count - 1], my_strlen(ret));
-		printf("number end = %d\n", number);
+		//if ((num_size(lastnumber) - num_size(number) > 2) && number != 0)
+		//	ret = write_mem(ret, beyond[count - 1], my_strlen(ret));
+		//printf("number end = %d\n", number);
 	}
 	return (ret);
 }
