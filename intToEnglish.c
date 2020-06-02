@@ -132,6 +132,8 @@ char		*intToEnglish(int number)
 			case 0:
 				ret = write_mem(ret, digit[number / j], my_strlen(ret));
 				ret = write_mem(ret, beyond[1], my_strlen(ret));
+				if (number % j < 100 && number > 100)
+					ret = write_mem(ret, beyond[count - 1], my_strlen(ret));
 				break;
 			case 1:
 				printf("%d\n", checkifteen);
@@ -148,6 +150,8 @@ char		*intToEnglish(int number)
 				isteen = number > ((2 * j) - 1) ? tens[number / j] : teens[(number % j) / (j / 10)];
 				ret = write_mem(ret, isteen, my_strlen(ret));
 				checkifteen = (number < (2 * j) - 1) && (number > j) ? 1 : 0;
+				if (number % j < 100)
+					ret = write_mem(ret, beyond[count - 1], my_strlen(ret));
 				printf("%d\n", checkifteen);
 				//if (checkifteen == 1)
 				//	ret = write_mem(ret, digit[number % 10], my_strlen(ret));
