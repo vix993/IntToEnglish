@@ -1,4 +1,4 @@
-IntToEnglish
+# IntToEnglish
 
 This repository contains my solution to the challenge of
 
@@ -15,4 +15,6 @@ representation of your chosen int.
 You can test this by cloning the repository compiling it,
 
 and providing a commandline argument.
+
+`gcc -Wall -Werror -Wextra `, `./a.out your_int`.
 
