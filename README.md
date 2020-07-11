@@ -16,5 +16,5 @@ You can test this by cloning the repository compiling it,
 
 and providing a commandline argument.
 
-`gcc -Wall -Werror -Wextra `, `./a.out your_int`.
+`gcc -Wall -Werror -Wextra intToEnglish.c test.c`, `./a.out your_int`.
 
